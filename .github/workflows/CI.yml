@@ -1,0 +1,31 @@
+name: CI
+on: [push, pull request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Setup Miniconda
+        uses: goanpeca/setup-miniconda@v1.0.2
+        with:
+          activate-environment: actest
+          environment-file: environment.yml
+          python-version: 3.7
+      - name: Black Code Formatter
+        uses: lgeiger/black-action@v1.0.1
+        with:
+          args: "--target-version py37 ."
+      - name: Test with pytest
+        run: |
+          pip install pytest
+          pytest test/
+      - name: Generate coverage report
+        run: |
+          pip install pytest
+          pip install pytest-cov
+          pytest --cov-report term-missing --cov-branch --cov=. tests/
+
