@@ -16,7 +16,7 @@ env-remove:
 	conda env remove -n actest -y
 
 black:
-	black --target-version py36 .
+	black --target-version py37 .
 
 test:
 	pytest --cov-report term-missing --cov-branch --cov=. tests/
