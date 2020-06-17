@@ -16,11 +16,13 @@ jobs:
           environment-file: environment.yml
           python-version: 3.7
       - name: Black Code Formatter
-        run: |
-          make black
+        uses: lgeiger/black-action@v1.0.1
+        with:
+          args: "--target-version py37 ."
       - name: Test with pytest
         run: |
-          make test
+          pip install pytest
+          pytest
       - name: Generate coverage report
         run: |
           pip install pytest
@@ -35,6 +37,3 @@ jobs:
           name: codecov-umbrella
           yml: ./codecov.yml 
           fail_ci_if_error: true
-      - name: Try make command
-        run: |
-          make setup
