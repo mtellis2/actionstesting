@@ -33,9 +33,11 @@ jobs:
           activate-environment: actest
           environment-file: environment.yml
       - name: Black Code Formatter
-        uses: lgeiger/black-action@v1.0.1
-        with:
-          args: "--target-version py39 ."
+        # uses: lgeiger/black-action@v1.0.1
+        # with:
+        #   args: "--target-version py39 ."
+        run: |
+          make black
       - name: Test with make
         run: |
           make test
