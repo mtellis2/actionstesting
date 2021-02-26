@@ -1,4 +1,4 @@
-name: CI Process
+name: CI-Process
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ on:
       - main
 jobs:
   build:
-    name: CI Process
+    name: CI-Process
     runs-on: ubuntu-latest
     # name: Ex1 (${{ matrix.python-version }}, ${{ matrix.os }})
     # runs-on: ${{ matrix.os }}
