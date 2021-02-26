@@ -20,3 +20,6 @@ black:
 
 test:
 	pytest --cov-report term-missing --cov-branch --cov=. tests/
+
+coverage:
+	pytest --cov=./ --cov-report=xml
