@@ -23,19 +23,12 @@ jobs:
     # python-version: ["3.9"]
     steps:
       - uses: actions/checkout@v2
-      # - name: Set up Python 3.9
-      #   uses: actions/setup-python@v1
-      #   with:
-      #     python-version: 3.9
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v2.0.1
         with:
           activate-environment: actest
           environment-file: environment.yml
       - name: Black Code Formatter
-        # uses: lgeiger/black-action@v1.0.1
-        # with:
-        #   args: "--target-version py39 ."
         shell: bash -l {0}
         run: |
           make black
@@ -43,10 +36,6 @@ jobs:
         shell: bash -l {0}
         run: |
           make test
-      # - name: Test with pytest
-      #   run: |
-      #     pip install pytest
-      #     pytest
       - name: Generate coverage report
         run: |
           pip install pytest

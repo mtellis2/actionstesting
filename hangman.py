@@ -58,7 +58,7 @@ def get_next_letter(remaining_letters):
 
 
 def play_hangman():
-    """Play a game of hangman.     
+    """Play a game of hangman.
     At the end of the game, returns if the player wants to retry."""
     # Let player specify difficulty
     print("Starting a game of Hangman...")
