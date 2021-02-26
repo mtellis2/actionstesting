@@ -1,4 +1,4 @@
-name: CI-Process
+name: Continuous-Integration
 on:
   push:
     branches:
