@@ -12,7 +12,15 @@ on:
       - main
 jobs:
   build:
+    name: CI Process
     runs-on: ubuntu-latest
+    # name: Ex1 (${{ matrix.python-version }}, ${{ matrix.os }})
+    # runs-on: ${{ matrix.os }}
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+    # python-version: ["3.9"]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.9
@@ -20,15 +28,17 @@ jobs:
         with:
           python-version: 3.9
       - name: Setup Miniconda
-        uses: goanpeca/setup-miniconda@v1.0.2
+        uses: conda-incubator/setup-miniconda@v2.0.1
         with:
           activate-environment: actest
           environment-file: environment.yml
-          python-version: 3.9
       - name: Black Code Formatter
         uses: lgeiger/black-action@v1.0.1
         with:
           args: "--target-version py39 ."
+      - name: Test with make
+        run: |
+          make test
       - name: Test with pytest
         run: |
           pip install pytest
