@@ -1,24 +1,34 @@
-name: CI
-on: [push, pull_request]
+name: CI Process
+on:
+  push:
+    branches:
+      # Push events on main branch
+      - main
+      # Push events to branches matching refs/heads/feature/...
+      - "feature/**"
+  pull_request:
+    branches:
+      # PR events on main branch
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.7
+      - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: 3.9
       - name: Setup Miniconda
         uses: goanpeca/setup-miniconda@v1.0.2
         with:
           activate-environment: actest
           environment-file: environment.yml
-          python-version: 3.7
+          python-version: 3.9
       - name: Black Code Formatter
         uses: lgeiger/black-action@v1.0.1
         with:
-          args: "--target-version py37 ."
+          args: "--target-version py39 ."
       - name: Test with pytest
         run: |
           pip install pytest
@@ -28,12 +38,12 @@ jobs:
           pip install pytest
           pip install pytest-cov
           pytest --cov=./ --cov-report=xml
-      - name: Upload coverage to Codecov  
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage.xml
           flags: unittests
           name: codecov-umbrella
-          yml: ./codecov.yml 
+          yml: ./codecov.yml
           fail_ci_if_error: true
